@@ -22,34 +22,9 @@ The project started as a way to test whether a small account could follow strong
 - A backtest script for replaying source-wallet activity against the event-book planner.
 - Tests covering sizing, config loading, wallet profiles, paper ledger behavior, filtering, dashboard routes, market data, and execution-service safety.
 
-## Dataflow
+## Architecture
 
-```text
-Source wallets / fixture trades
-        |
-        v
-On-chain watcher or fixture loader
-        |
-        v
-Trade classifier + wallet profile rules
-        |
-        +--> ignore / skip with reason
-        |
-        v
-Event-book planner + sizing engine
-        |
-        v
-Paper broker / planned live order intent
-        |
-        v
-SQLite ledger + position store
-        |
-        v
-Price monitor + settlement pass
-        |
-        v
-Dashboard + performance review
-```
+![Prediction market trading bot architecture](docs/assets/architecture.svg)
 
 ## Run A Local Paper Demo
 

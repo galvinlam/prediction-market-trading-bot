@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="720" viewBox="0 0 1120 720" role="img" aria-labelledby="title desc">
+  <title id="title">Prediction Market Trading Bot Architecture</title>
+  <desc id="desc">Architecture diagram showing source wallets and fixtures feeding the watcher, strategy engine, execution layer, storage, price monitor, and dashboard.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#0c1224"/>
+      <stop offset="55%" stop-color="#101827"/>
+      <stop offset="100%" stop-color="#08131b"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#18233a"/>
+      <stop offset="100%" stop-color="#111827"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0%" stop-color="#00f5a0"/>
+      <stop offset="100%" stop-color="#18a0fb"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#000000" flood-opacity="0.32"/>
+    </filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2 2 L10 6 L2 10 Z" fill="#66e3c4"/>
+    </marker>
+    <style>
+      .title { font: 700 34px Inter, Segoe UI, Arial, sans-serif; fill: #f8fafc; letter-spacing: -0.02em; }
+      .subtitle { font: 500 16px Inter, Segoe UI, Arial, sans-serif; fill: #9fb0c8; }
+      .lane { fill: rgba(255,255,255,0.035); stroke: rgba(148,163,184,0.22); stroke-width: 1; }
+      .lane-label { font: 700 12px Inter, Segoe UI, Arial, sans-serif; fill: #8ea3bf; letter-spacing: 0.16em; text-transform: uppercase; }
+      .box { fill: url(#card); stroke: rgba(148,163,184,0.35); stroke-width: 1.2; filter: url(#shadow); }
+      .box-hot { fill: #102821; stroke: #10e6a4; stroke-width: 1.4; filter: url(#shadow); }
+      .box-warm { fill: #201a2d; stroke: #8b5cf6; stroke-width: 1.2; filter: url(#shadow); }
+      .box-title { font: 700 18px Inter, Segoe UI, Arial, sans-serif; fill: #f8fafc; }
+      .box-body { font: 500 13px Inter, Segoe UI, Arial, sans-serif; fill: #a8b4c6; }
+      .tag { fill: rgba(102,227,196,0.12); stroke: rgba(102,227,196,0.45); stroke-width: 1; }
+      .tag-text { font: 700 11px Inter, Segoe UI, Arial, sans-serif; fill: #66e3c4; letter-spacing: 0.08em; }
+      .line { fill: none; stroke: #66e3c4; stroke-width: 2.4; marker-end: url(#arrow); }
+      .muted-line { fill: none; stroke: #5b6f8c; stroke-width: 2; stroke-dasharray: 7 7; marker-end: url(#arrow); }
+      .note { font: 600 12px Inter, Segoe UI, Arial, sans-serif; fill: #cbd5e1; }
+      .small { font: 500 11px Inter, Segoe UI, Arial, sans-serif; fill: #8291a8; }
+    </style>
+  </defs>
+
+  <rect width="1120" height="720" rx="28" fill="url(#bg)"/>
+  <circle cx="1015" cy="78" r="180" fill="#0ea5e9" opacity="0.08"/>
+  <circle cx="140" cy="650" r="220" fill="#10b981" opacity="0.07"/>
+
+  <text x="56" y="70" class="title">Prediction Market Trading Bot</text>
+  <text x="56" y="100" class="subtitle">Paper-first copy trading architecture with gated live execution</text>
+
+  <rect x="44" y="132" width="232" height="515" rx="24" class="lane"/>
+  <rect x="304" y="132" width="512" height="515" rx="24" class="lane"/>
+  <rect x="844" y="132" width="232" height="515" rx="24" class="lane"/>
+  <text x="72" y="164" class="lane-label">Inputs</text>
+  <text x="332" y="164" class="lane-label">Decision Loop</text>
+  <text x="872" y="164" class="lane-label">Outputs</text>
+
+  <rect x="72" y="198" width="176" height="88" rx="18" class="box"/>
+  <text x="96" y="230" class="box-title">Source Wallets</text>
+  <text x="96" y="254" class="box-body">Wallet activity</text>
+  <text x="96" y="274" class="box-body">fills and repeats</text>
+
+  <rect x="72" y="334" width="176" height="88" rx="18" class="box"/>
+  <text x="96" y="366" class="box-title">Fixture Replay</text>
+  <text x="96" y="390" class="box-body">Offline paper tests</text>
+  <text x="96" y="410" class="box-body">without credentials</text>
+
+  <rect x="72" y="470" width="176" height="88" rx="18" class="box"/>
+  <text x="96" y="502" class="box-title">Market Data</text>
+  <text x="96" y="526" class="box-body">Prices, outcomes,</text>
+  <text x="96" y="546" class="box-body">settlement state</text>
+
+  <rect x="344" y="188" width="196" height="94" rx="18" class="box"/>
+  <text x="370" y="220" class="box-title">Watcher</text>
+  <text x="370" y="244" class="box-body">Normalizes source</text>
+  <text x="370" y="264" class="box-body">trades into events</text>
+
+  <rect x="584" y="188" width="196" height="94" rx="18" class="box-hot"/>
+  <text x="610" y="220" class="box-title">Strategy Engine</text>
+  <text x="610" y="244" class="box-body">Wallet profiles, filters,</text>
+  <text x="610" y="264" class="box-body">repeat-buy rules</text>
+
+  <rect x="344" y="336" width="196" height="94" rx="18" class="box-hot"/>
+  <text x="370" y="368" class="box-title">Event-Book Planner</text>
+  <text x="370" y="392" class="box-body">Groups markets by</text>
+  <text x="370" y="412" class="box-body">event and conviction</text>
+
+  <rect x="584" y="336" width="196" height="94" rx="18" class="box"/>
+  <text x="610" y="368" class="box-title">Sizing + Risk</text>
+  <text x="610" y="392" class="box-body">Caps exposure and</text>
+  <text x="610" y="412" class="box-body">rejects weak copies</text>
+
+  <rect x="344" y="500" width="196" height="94" rx="18" class="box"/>
+  <text x="370" y="532" class="box-title">Paper Broker</text>
+  <text x="370" y="556" class="box-body">Default execution</text>
+  <text x="370" y="576" class="box-body">for inspection</text>
+
+  <rect x="584" y="500" width="196" height="94" rx="18" class="box-warm"/>
+  <text x="610" y="532" class="box-title">Live Executor</text>
+  <text x="610" y="556" class="box-body">Credential-gated</text>
+  <text x="610" y="576" class="box-body">order path</text>
+
+  <rect x="872" y="198" width="176" height="88" rx="18" class="box"/>
+  <text x="896" y="230" class="box-title">SQLite Ledger</text>
+  <text x="896" y="254" class="box-body">Trades, positions,</text>
+  <text x="896" y="274" class="box-body">skip reasons</text>
+
+  <rect x="872" y="334" width="176" height="88" rx="18" class="box"/>
+  <text x="896" y="366" class="box-title">Price Monitor</text>
+  <text x="896" y="390" class="box-body">Marks positions</text>
+  <text x="896" y="410" class="box-body">and settlements</text>
+
+  <rect x="872" y="470" width="176" height="88" rx="18" class="box-hot"/>
+  <text x="896" y="502" class="box-title">Dashboard</text>
+  <text x="896" y="526" class="box-body">Performance, trades,</text>
+  <text x="896" y="546" class="box-body">settings, research</text>
+
+  <path class="line" d="M248 242 H344"/>
+  <path class="line" d="M248 378 H296 C316 378 316 235 344 235"/>
+  <path class="line" d="M540 235 H584"/>
+  <path class="line" d="M682 282 V336"/>
+  <path class="line" d="M584 383 H540"/>
+  <path class="line" d="M540 383 H584"/>
+  <path class="line" d="M682 430 V500"/>
+  <path class="line" d="M540 547 H584"/>
+  <path class="line" d="M780 547 H836 C856 547 856 242 872 242"/>
+  <path class="line" d="M960 286 V334"/>
+  <path class="line" d="M960 422 V470"/>
+  <path class="muted-line" d="M248 514 H304 C326 514 326 547 344 547"/>
+  <path class="muted-line" d="M960 334 V286"/>
+
+  <rect x="382" y="616" width="132" height="30" rx="15" class="tag"/>
+  <text x="406" y="636" class="tag-text">PAPER FIRST</text>
+  <rect x="532" y="616" width="152" height="30" rx="15" class="tag"/>
+  <text x="556" y="636" class="tag-text">INSPECTABLE</text>
+  <rect x="702" y="616" width="132" height="30" rx="15" class="tag"/>
+  <text x="725" y="636" class="tag-text">LIVE GATED</text>
+
+  <text x="56" y="684" class="small">Default flow uses fixture replay or watcher input into paper trading. Live execution is a separate credential-gated branch.</text>
+</svg>
