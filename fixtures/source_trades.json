@@ -1,0 +1,19 @@
+[
+  {
+    "idempotency_key": "137:0xaaa:1:0x1111111111111111111111111111111111111111",
+    "chain_id": 137,
+    "exchange_contract": "ctf_exchange",
+    "tx_hash": "0xaaa",
+    "block_number": 100,
+    "block_timestamp": "2026-04-26 16:45 PDT",
+    "log_index": 1,
+    "source_wallet": "0x1111111111111111111111111111111111111111",
+    "side": "buy",
+    "asset_id": "123",
+    "market_id": "demo-market",
+    "outcome": "YES",
+    "price": 0.5,
+    "quantity": 800,
+    "notional_usdc": 400
+  }
+]

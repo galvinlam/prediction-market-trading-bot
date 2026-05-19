@@ -1,0 +1,26 @@
+.env
+.superpowers/
+
+# Runtime state
+data/
+logs/
+reports/
+tmp-debug/
+
+# Python caches and local environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+
+# Local dependency/tool drops
+tools/
+*.sqlite3
+*.sqlite3-*
+*.db
+*.log

@@ -1,0 +1,267 @@
+mode:
+  trading_mode: paper
+  paper_trading: true
+  live_trading: false
+wallets:
+- name: example_wallet
+  address: '0x1111111111111111111111111111111111111111'
+  enabled: true
+  bracket_strategy_enabled: false
+  bracket_buy_size_usdc: 10.0
+  bracket_stop_loss_pct: 0.0
+  bracket_max_open_events: 0
+  bracket_allowed_patterns:
+  - exact_or_binary
+  - range
+  - above_or_higher
+  - below_or_lower
+  repeat_buy_strategy_enabled: false
+  repeat_buy_size_usdc: 5.0
+  repeat_buy_stop_loss_pct: 0.0
+  repeat_buy_min_source_notional_usdc: 0.0
+  repeat_buy_min_buy_count: 2
+  repeat_buy_min_avg_price: 0.01
+  repeat_buy_max_avg_price: 1.0
+  repeat_buy_max_total_exposure_usdc: 0.0
+  repeat_buy_blocked_title_patterns: []
+  repeat_buy_allowed_sports: []
+  repeat_buy_allowed_bet_types: []
+  event_follow_strategy_enabled: false
+  event_follow_buy_size_usdc: 2.0
+  event_follow_max_event_exposure_usdc: 4.0
+  event_follow_max_total_exposure_usdc: 50.0
+  event_follow_min_source_trade_usdc: 20.0
+  event_follow_min_event_source_notional_usdc: 250.0
+  event_follow_min_event_buy_count: 3
+  event_follow_min_avg_price: 0.2
+  event_follow_max_avg_price: 0.8
+  sports_trailing_stop_enabled: false
+  sports_trailing_activation_pct: 35.0
+  sports_trailing_stop_pct: 25.0
+  sports_trailing_floor_delta: 0.03
+  reserved_cash_usdc: 0.0
+  # profile_json is the canonical editable wallet strategy profile. The wide
+  # wallet fields above are compatibility backfill for older configs only; API
+  # edits that supply profile_json ignore those wide strategy fields.
+  profile_json:
+    version: 1
+    market_filters:
+      allowed_market_types:
+      - crypto
+      - weather
+      - sports
+      - other
+    weather_bracket:
+      enabled: false
+      copy_source_leg_size: false
+      buy_size_usdc: 10.0
+      stop_loss_pct: 0.0
+      max_open_events: 0
+      allowed_patterns:
+      - exact_or_binary
+      - range
+      - above_or_higher
+      - below_or_lower
+    repeat_buy:
+      enabled: false
+      buy_size_usdc: 5.0
+      stop_loss_pct: 0.0
+      min_source_notional_usdc: 0.0
+      min_buy_count: 2
+      min_avg_price: 0.01
+      max_avg_price: 1.0
+      max_total_exposure_usdc: 0.0
+      blocked_title_patterns: []
+      allowed_sports: []
+      allowed_bet_types: []
+    event_follow:
+      enabled: false
+      buy_size_usdc: 2.0
+      max_event_exposure_usdc: 4.0
+      max_total_exposure_usdc: 50.0
+      min_source_trade_usdc: 20.0
+      min_event_source_notional_usdc: 250.0
+      min_event_buy_count: 3
+      min_avg_price: 0.2
+      max_avg_price: 0.8
+      allowed_sports: []
+      allowed_bet_types: []
+    sports_trailing:
+      enabled: false
+      activation_pct: 35.0
+      stop_pct: 25.0
+      floor_delta: 0.03
+    risk:
+      reserved_cash_usdc: 0.0
+      local_stop_loss_enabled: true
+    source_follow:
+      enabled: false
+      copy_scale: 0.001
+      max_asset_exposure_usdc: 25.0
+      min_trade_usdc: 1.0
+    filter_copy:
+      enabled: false
+      max_source_price: 1.0
+      min_source_price: 0.2
+      min_single_fill_usdc: 0.0
+      min_cumulative_source_usdc: 0.0
+      accumulation_window_seconds: 0
+      daily_deployed_cap_usdc: 0.0
+      source_sell_exit_fraction: 0.0
+      same_event_hedge_max_fraction: 0.25
+      event_book_min_asset_source_notional_usdc: 1000.0
+      scale_up_enabled: true
+      scale_up_max_position_usdc: 60.0
+      in_event_stop_loss_pct: 0.0
+      allowed_sports: []
+      allowed_bet_types:
+      - moneyline_winlose
+      - total_or_over_under
+      - spread_handicap
+      - both_teams_score
+      - map_or_game_winner
+      sport_rules: {}
+      rebalance:
+        enabled: false
+        max_source_price: 0.82
+        strong_max_source_price: 0.88
+        min_source_notional_usdc: 3000.0
+        strong_min_source_notional_usdc: 10000.0
+        min_event_share: 0.45
+        strong_min_event_share: 0.6
+        min_repair_to_existing_source_ratio: 1.15
+        max_repair_buy_usdc: 30.0
+        normal_event_cap_usdc: 25.0
+        extra_repair_event_cap_usdc: 20.0
+        allowed_sports: []
+      blocked_title_patterns:
+      - map
+      - game
+      - o/u
+      - over/under
+      - total
+      - spread
+      - handicap
+      - both teams to score
+      - btts
+      - parlay
+      - draw
+      tiers:
+      - min_price: 0.2
+        max_price: 0.35
+        buy_size_usdc: 12.0
+      - min_price: 0.35
+        max_price: 0.45
+        buy_size_usdc: 10.0
+      - min_price: 0.45
+        max_price: 0.55
+        buy_size_usdc: 8.0
+    event_book:
+      min_source_notional_usdc: 3000.0
+      planner_rn1_soccer_min_event_source_usdc: 10000.0
+      planner_rn1_mlb_min_event_source_usdc: 5000.0
+      planner_fresh_min_price: 0.01
+      planner_fresh_max_price: 0.95
+      planner_rebalance_min_price: 0.01
+      planner_rebalance_max_price: 0.98
+      min_avg_price: 0.4
+      max_avg_price: 0.7
+      min_dominance_share: 0.6
+      min_dominance_ratio: 1.75
+    fixed_buy:
+      enabled: false
+      buy_size_usdc: 5.0
+      market_types:
+      - crypto
+    binary_hedge:
+      enabled: false
+    limit_copy:
+      limit_price_premium: 0.003
+      limit_price_multiple: 1.2
+      source_copy_scale: 0.25
+    tier_sizing:
+      tiers:
+      - min_price: 0.3
+        max_price: 0.65
+        buy_size_usdc: 3.0
+      - min_price: 0.65
+        max_price: 0.8
+        buy_size_usdc: 2.0
+    esports_repeat_buy:
+      min_buy_count: 40
+      min_source_notional_usdc: 3000.0
+      min_avg_price: 0.4
+      max_avg_price: 0.7
+      allowed_bet_types:
+      - moneyline_winlose
+    high_conviction:
+      min_buy_count: 10
+      min_source_notional_usdc: 3000.0
+      min_avg_price: 0.4
+      max_avg_price: 0.7
+    strategy:
+      custom: false
+      copy_buys_enabled: true
+sizing:
+  strategy: scaled_source
+  copy_scale: 1.0
+  max_trade_usdc: 100.0
+  max_position_usdc: 3.0
+  min_trade_usdc: 0.25
+  max_entry_price_source_premium: 0.25
+  max_entry_price_source_multiple: 2.0
+paper:
+  starting_cash_usdc: 200.0
+  slippage_pct: 5.0
+  settlement_slippage_pct: 0.0
+exits:
+  mirror_source_sells: true
+  stop_loss_pct: 40.0
+  take_profit_pct: 0.0
+  max_holding_minutes: 1440
+watcher:
+  exchange_contracts:
+  - ctf_exchange
+  - neg_risk_ctf_exchange
+  confirmations: 1
+  backfill_blocks: 500
+  ws_ping_interval_seconds: 15.0
+  ws_ping_timeout_seconds: 45.0
+  ws_close_timeout_seconds: 5.0
+  ws_reconnect_max_seconds: 30.0
+price_monitor:
+  enabled: true
+  poll_interval_seconds: 30.0
+  idle_poll_interval_seconds: 300.0
+winner_capture:
+  enabled: true
+  entry_price_max: 0.35
+  recover_stake_multiple: 2.0
+  first_scale_multiple: 4.0
+  first_scale_sell_pct: 35.0
+  high_price_threshold: 0.5
+  high_price_sell_pct: 50.0
+  runner_pct: 15.0
+  trailing_drawdown_pct: 30.0
+  high_price_absolute_trail: 0.12
+  sports_mid_entry_price_max: 0.70
+  sports_mid_partial_price_threshold: 0.75
+  sports_mid_partial_profit_pct: 35.0
+  sports_mid_partial_stake_pct: 50.0
+  sports_mid_full_stake_price_threshold: 0.85
+  sports_mid_high_price_threshold: 0.92
+  sports_mid_high_price_sell_pct: 75.0
+  sports_mid_runner_pct: 15.0
+  sports_dead_cut_price: 0.08
+  sports_dead_cut_max_peak_gain_pct: 15.0
+app:
+  host: 127.0.0.1
+  port: 8789
+  database_url: sqlite:///data/polymarket-copy-trading.sqlite3
+  live_database_url: sqlite:///data/polymarket-copy-trading-live.sqlite3
+market_filters:
+  enabled_market_types:
+  - crypto
+  - weather
+  - sports
+  - other

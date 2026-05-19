@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#0a0a0f">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/app.css?v=paper-position-usd-20260501">
+    <title>Polymarket Copy Trading</title>
+  </head>
+  <body>
+    <div class="overlay" id="overlay"></div>
+
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">
+          <span class="logo-mark">PC</span>
+          <span class="logo-text">CopyOS</span>
+        </div>
+        <button class="sidebar-close" id="sidebar-close" type="button" aria-label="Close navigation">x</button>
+      </div>
+
+      <nav class="nav" aria-label="Dashboard sections">
+        <button class="nav-item active" data-page="dashboard" type="button">
+          <span class="icon-grid" aria-hidden="true"></span>
+          Dashboard
+        </button>
+        <button class="nav-item" data-page="trades" type="button">
+          <span class="icon-arrow" aria-hidden="true"></span>
+          Trades
+        </button>
+        <button class="nav-item" data-page="performance" type="button">
+          <span class="icon-grid" aria-hidden="true"></span>
+          Performance
+        </button>
+        <button class="nav-item" data-page="wallets" type="button">
+          <span class="icon-wallet" aria-hidden="true"></span>
+          Wallets
+        </button>
+        <button class="nav-item" data-page="settings" type="button">
+          <span class="icon-gear" aria-hidden="true"></span>
+          Settings
+        </button>
+        <button class="nav-item" data-page="research" type="button">
+          <span class="icon-search" aria-hidden="true"></span>
+          Research
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="theme-toggle" id="theme-toggle" type="button">
+          <span class="theme-dot" aria-hidden="true"></span>
+          <span id="theme-label">Dark Mode</span>
+        </button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="menu-btn" id="menu-btn" type="button" aria-label="Open navigation">
+          <span></span><span></span><span></span>
+        </button>
+        <button class="btn-sm mobile-refresh" id="refresh-mobile" type="button" aria-label="Refresh dashboard">Refresh</button>
+        <div>
+          <h1 id="page-title">Dashboard</h1>
+          <p id="page-subtitle">Paper copy-trading monitor</p>
+        </div>
+        <div class="topbar-actions">
+          <div class="mode-toggle" aria-label="Trading mode">
+            <span class="active" id="paper-mode">Paper</span>
+            <span class="disabled" id="real-mode">Real</span>
+          </div>
+          <span class="status-pill" id="watcher-pill">loading</span>
+          <button class="btn-sm" id="refresh" type="button">Refresh</button>
+        </div>
+      </header>
+
+      <section class="page active" id="page-dashboard">
+        <div class="page-content">
+          <section class="portfolio-panel">
+            <div>
+              <p class="eyebrow">Total portfolio value</p>
+              <strong id="portfolio-value">$0.00</strong>
+              <span class="pnl-line" id="portfolio-delta">$0.00 today</span>
+              <span class="cash-line" id="cash-available">Cash available $0.00</span>
+            </div>
+            <div class="range-tabs" aria-label="PnL range">
+              <button class="active" data-range="day" type="button">1D</button>
+              <button data-range="week" type="button">1W</button>
+              <button data-range="month" type="button">1M</button>
+              <button data-range="lifetime" type="button">All</button>
+            </div>
+          </section>
+
+          <section class="chart-card">
+            <svg id="pnl-chart" viewBox="0 0 800 210" role="img" aria-label="Portfolio value chart"></svg>
+          </section>
+
+          <section class="pnl-grid" id="pnl-cards"></section>
+
+          <div class="section-header positions-header">
+            <div class="position-tabs" aria-label="Position status">
+              <button class="active" data-position-tab="open" type="button">Open Positions</button>
+              <button data-position-tab="closed" type="button">Closed Positions</button>
+            </div>
+          </div>
+          <div class="positions-list" id="positions-list"></div>
+        </div>
+      </section>
+
+      <section class="page" id="page-trades">
+        <div class="page-content">
+          <div class="page-header-row">
+            <div>
+              <p class="eyebrow">Ledger</p>
+              <h2>Trade History</h2>
+            </div>
+            <button class="btn-sm" id="refresh-trades" type="button">Refresh</button>
+          </div>
+          <div class="trades-full-list" id="trades-list"></div>
+        </div>
+      </section>
+
+      <section class="page" id="page-performance">
+        <div class="page-content">
+          <div class="page-header-row">
+            <div>
+              <p class="eyebrow" id="performance-window-label">Last 24 hours</p>
+              <h2>Performance</h2>
+            </div>
+            <div class="performance-actions">
+              <div class="performance-window-tabs" aria-label="Performance window">
+                <button data-performance-hours="1" type="button">1h</button>
+                <button data-performance-hours="4" type="button">4h</button>
+                <button data-performance-hours="8" type="button">8h</button>
+                <button data-performance-hours="12" type="button">12h</button>
+                <button class="active" data-performance-hours="24" type="button">24h</button>
+              </div>
+              <button class="btn-sm" id="refresh-performance" type="button">Refresh</button>
+            </div>
+          </div>
+          <div class="performance-list" id="performance-list"></div>
+        </div>
+      </section>
+
+      <section class="page" id="page-wallets">
+        <div class="page-content">
+          <div class="page-header-row">
+            <div>
+              <p class="eyebrow">Copy sources</p>
+              <h2>Target Wallets</h2>
+            </div>
+            <div class="wallet-total">
+              <span>Enabled</span>
+              <strong id="wallet-count">0</strong>
+            </div>
+          </div>
+
+          <section class="wallet-page-panel">
+            <div>
+              <p class="eyebrow">Wallet management</p>
+              <h3>Copy source controls</h3>
+              <p>Manage source wallets, market gates, and strategy-specific sizing from one setup screen.</p>
+            </div>
+            <button class="btn-primary wallet-add-button" id="wallet-add-open" type="button">Add Wallet</button>
+          </section>
+          <div class="wallets-list" id="wallet-list"></div>
+        </div>
+      </section>
+
+      <section class="page" id="page-settings">
+        <div class="page-content">
+          <div class="page-header-row">
+            <div>
+              <p class="eyebrow">Runtime</p>
+              <h2>Settings</h2>
+            </div>
+          </div>
+          <form class="settings-form" id="settings-form">
+            <div class="settings-sections" id="settings-list"></div>
+            <div class="settings-actions">
+              <span id="settings-status"></span>
+              <button class="btn-primary" type="submit">Save Settings</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section class="page" id="page-research">
+        <div class="page-content">
+          <div class="empty-state">
+            <p class="eyebrow">Research module</p>
+            <h2>Wallet discovery comes next</h2>
+            <p>This MVP is running from your dashboard-managed wallet list. Scoring, discovery, and wallet research can plug into this page later.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="/static/app.js?v=paper-position-usd-20260501" defer></script>
+  </body>
+</html>
